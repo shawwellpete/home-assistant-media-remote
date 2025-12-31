@@ -1,0 +1,233 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-media-player-card
+    entity: media_player.yamaha_receiver
+    name: media Room Amp
+    volume_controls:
+      - volume_mute
+      - volume_set
+      - volume_buttons
+    media_controls: []
+    card_mod:
+      style: |
+        ha-card {
+          background-color: rgba(255, 140, 0, 0.05);
+          border-radius: 12px;
+        }
+
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+
+
+
+      - type: custom:mushroom-template-card
+        icon: mdi:volume-minus
+        tap_action:
+          action: call-service
+          service: media_player.volume_down
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:volume-off
+        tap_action:
+          action: call-service
+          service: media_player.volume_mute
+          data:
+            is_volume_muted: true
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:volume-plus
+        tap_action:
+          action: call-service
+          service: media_player.volume_up
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Drama
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Drama
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Standard
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Standard
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Spectacle
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Spectacle
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Adventure
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Adventure
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Straight
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Straight
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Stereo
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: 9ch Stereo
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Mono
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Mono Movie
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:surround-sound
+        primary: Sound
+        secondary: Surround
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: Surround Decoder
+          target:
+            entity_id: media_player.yamaha_receiver
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }

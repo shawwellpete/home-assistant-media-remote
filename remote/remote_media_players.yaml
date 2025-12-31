@@ -1,0 +1,9 @@
+type: vertical-stack
+cards:
+
+  - type: custom:mini-media-player
+    entity: media_player.yamaha_receiver
+    name: Yamaha Amp
+    hide:
+      source: false
+      controls: false

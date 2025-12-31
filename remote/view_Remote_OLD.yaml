@@ -1,0 +1,221 @@
+title: Remote
+path: remote
+panel: true
+visible:
+  - user: 1b2a1289bb92447ab7441bff390d293b  # mqtt
+  - user: c462207ae4a04e4b91a55f631b94a086  # Peter
+  - user: 9da07ee7019f47b98feb2e9b88f71537  # Jessica
+  - user: 643f6ed4b59c450cb2ffc5d8036c6982  # Claudia
+  - user: c36c13cae2124079b660ef005791f032  # Henry
+  - user: cdaa0823d183426ea5fa1fd60a830141  # Christian
+  - user: b1f41759119542cda86cb578e640a7d8  # Josh
+
+badges: []
+
+cards:
+  - type: vertical-stack
+    cards:
+
+    # --- ROOM SELECTOR MUSHROOM BUTTONS ---
+    - type: horizontal-stack
+      cards:
+
+        - type: custom:button-card
+          entity: input_select.selected_room
+          name: Media Room
+          icon: mdi:movie-open
+
+
+
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            data:
+              entity_id: input_select.selected_room
+              option: Media Room
+          # double_tap_action:
+          #   action: call-service
+          #   service: script.turn_on
+          #   service_data:
+          #     entity_id: script.apple_tv
+
+          styles:
+            card:
+              - background-color: rgba(0, 128, 128, 0.15)
+              - border-radius: 12px
+
+            icon:
+              - color: >
+                  [[[ return states['input_select.selected_room'].state === 'Media Room' ? '#FFA500' : '#0080FF'; ]]]
+
+
+    # secondary: >
+    #   {% if is_state('input_select.media_room_activity', 'Smart TV') %}
+    #     Smart TV  - tap to switch to Apple TV
+    #   {% else %}
+    #     {{ states('input_select.media_room_activity') }}
+    #   {% endif %}
+    # layout: vertical
+    # tap_action:
+    #   action: call-service
+    #   service: script.turn_on
+    #   service_data:
+    #     entity_id: script.apple_tv
+
+
+        - type: custom:button-card
+          entity: input_select.selected_room
+          name: Family Room 
+          icon: mdi:sofa
+
+
+
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            data:
+              entity_id: input_select.selected_room
+              option: Family Room
+
+          styles:
+            card:
+              - background-color: rgba(0, 128, 128, 0.15)
+              - border-radius: 12px
+
+            icon:
+              - color: >
+                  [[[ return states['input_select.selected_room'].state === 'Family Room' ? '#FFA500' : '#0080FF'; ]]]
+
+
+
+
+
+        # - type: custom:mushroom-template-card
+        #   primary: Media Room
+        #   icon: mdi:television-box
+        #   tap_action:
+        #     action: call-service
+        #     service: input_select.select_option
+        #     data:
+        #       entity_id: input_select.selected_room
+        #       option: Media Room
+        #   card_mod:
+        #     style: |
+        #       ha-card {
+        #         background-color: {% if is_state('input_select.selected_room', 'Media Room') %}rgba(0, 128, 255, 0.15){% else %}rgba(128, 128, 128, 0.1){% endif %};
+        #         color: {% if is_state('input_select.selected_room', 'Media Room') %}#0080FF{% else %}#888888{% endif %};
+        #         border-radius: 12px;
+        #       }
+
+        # - type: custom:mushroom-template-card
+        #   primary: Family Room
+        #   icon: mdi:sofa
+        #   tap_action:
+        #     action: call-service
+        #     service: input_select.select_option
+        #     data:
+        #       entity_id: input_select.selected_room
+        #       option: Family Room
+        #   card_mod:
+        #     style: |
+        #       ha-card {
+        #         background-color: {% if is_state('input_select.selected_room', 'Family Room') %}rgba(0, 128, 255, 0.15){% else %}rgba(128, 128, 128, 0.1){% endif %};
+        #         color: {% if is_state('input_select.selected_room', 'Family Room') %}#0080FF{% else %}#888888{% endif %};
+        #         border-radius: 12px;
+        #       }
+
+    # --- CONDITIONAL BLOCK FOR MEDIA ROOM ---
+    - type: conditional
+      conditions:
+        - entity: input_select.selected_room
+          state: "Media Room"
+      card:
+        type: vertical-stack
+        cards:
+          - !include remote_scripts.yaml
+          # - !include remote_media_players.yaml
+          # - !include remote_volume.yaml
+
+          - type: conditional
+            conditions:
+              - entity: input_select.media_room_activity
+                state: "Smart TV"
+            card:
+              type: vertical-stack
+              cards:
+                - !include remote_tv_controls.yaml
+                - !include remote_sound.yaml
+          - type: conditional
+            conditions:
+              - entity: input_select.media_room_activity
+                state: "Apple TV"
+            card:
+              type: vertical-stack
+              cards:
+                - !include remote_apple_tv_controls.yaml
+                - !include remote_sound.yaml
+          - type: conditional
+            conditions:
+              - entity: input_select.media_room_activity
+                state: "Projector Apple TV"
+            card:
+              type: vertical-stack
+              cards:
+                - !include remote_apple_tv_controls.yaml
+                - !include remote_sound.yaml
+
+          - !include ../block_light_floor_1.yaml    
+
+          # - !include remote_lights.yaml
+          # - !include remote_sound.yaml
+
+    # --- CONDITIONAL BLOCK FOR FAMILY ROOM ---
+    - type: conditional
+      conditions:
+        - entity: input_select.selected_room
+          state: "Family Room"
+      card:
+        type: vertical-stack
+        cards:
+          - !include remote_family_room_scripts.yaml
+          # - !include remote_family_room_volume.yaml
+          - type: conditional
+            conditions:
+              - entity: input_select.family_room_activity
+                state: "Smart TV"
+            card:
+              type: vertical-stack
+              cards:
+                - !include remote_family_room_tv_controls.yaml
+                - !include remote_family_room_sound.yaml
+
+          - type: conditional
+            conditions:
+              - entity: input_select.family_room_activity
+                state: "Freesat"
+            card:
+              type: vertical-stack
+              cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:remote-tv
+                primary: Use Freesat Remote
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: rgba(255, 204, 0, 0.2);
+                      color: #FFA500;
+                      border-radius: 12px;
+                      font-weight: bold;
+                      text-align: center;
+                    }
+              - !include remote_family_room_sound.yaml
+          - type: conditional
+            conditions:
+              - entity: input_select.family_room_activity
+                state: "Sonos"
+            card:
+              type: vertical-stack
+              cards:
+                - !include remote_family_room_sonos_controls.yaml
+          - !include ../block_light_floor_0.yaml       
+          # - !include remote_family_room_lights.yaml

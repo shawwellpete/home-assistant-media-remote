@@ -1,0 +1,255 @@
+type: vertical-stack
+cards:
+  - type: custom:mini-media-player
+    entity: media_player.media_room_tv
+    name: LG TV
+    hide:
+      volume: true
+
+  # --- TV CONTROL GRID ---
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: custom:mushroom-template-card
+        icon: mdi:home
+        primary: Home
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: HOME
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:arrow-up-bold
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: UP
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:pause
+        primary: Pause
+        tap_action:
+          action: call-service
+          service: media_player.media_pause
+          data:
+            entity_id: media_player.media_room_tv
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:arrow-left-bold
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: LEFT
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:check-bold
+        primary: OK
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: ENTER
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:arrow-right-bold
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: RIGHT
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:undo
+        primary: Back
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: BACK
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:arrow-down-bold
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: DOWN
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:dots-horizontal
+        primary: Menu
+        tap_action:
+          action: call-service
+          service: webostv.button
+          data:
+            entity_id: media_player.media_room_tv
+            button: MENU
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 200, 180, 0.15);
+              color: #00C8B4;
+              --card-mod-icon-color: #00C8B4;
+              border-radius: 12px;
+            }
+
+  # --- STREAMING SERVICES GRID ---
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+      - type: picture
+        image: /local/pictures/netflix_new.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Netflix
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/prime.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Prime Video
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/youtube_new.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Christian Blandford
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/disney.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Disney+
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/now.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: NOW
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/bbc.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: BBC iPlayer
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/apple_new.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Apple TV
+          target:
+            entity_id: media_player.media_room_tv
+
+      - type: picture
+        image: /local/pictures/paramount.png
+        tap_action:
+          action: call-service
+          service: media_player.select_source
+          data:
+            source: Paramount+
+          target:
+            entity_id: media_player.media_room_tv
+

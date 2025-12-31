@@ -1,0 +1,10 @@
+type: vertical-stack
+cards:
+  - type: custom:mini-media-player
+    entity: media_player.family_room_amp
+    artwork: cover
+    hide:
+      power: false
+      icon: false
+      source: false
+    info: short

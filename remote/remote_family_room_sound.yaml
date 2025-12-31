@@ -1,0 +1,240 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-title-card
+
+
+  # - type: custom:mushroom-template-card
+  #   primary: Mute / Unmute
+  #   icon: mdi:volume-off
+  #   entity: media_player.family_room_amp
+  #   tap_action:
+  #     action: call-service
+  #     service: media_player.toggle_mute
+  #     data:
+  #       entity_id: media_player.family_room_amp
+  #   card_mod:
+  #     style: |
+  #       ha-card {
+  #         background-color: rgba(255, 140, 0, 0.1);
+  #         color: #FF8C00;
+  #         --card-mod-icon-color: #FF8C00;
+  #         border-radius: 12px;
+  #       }
+
+  - type: custom:mushroom-media-player-card
+    entity: media_player.family_room_amp
+    name: Family Room Amp
+    volume_controls:
+      - volume_mute
+      - volume_set
+      - volume_buttons
+    media_controls: []
+    card_mod:
+      style: |
+        ha-card {
+          background-color: rgba(255, 140, 0, 0.05);
+          border-radius: 12px;
+        }
+
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Drama
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: drama
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Standard
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: standard
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Spectacle
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: spectacle
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: adventure
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: adventure
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Straight
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: straight
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary:  Stereo
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: all_ch_stereo
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:speaker
+        primary: Sound
+        secondary: Mono
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: mono_movie
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+
+      - type: custom:mushroom-template-card
+        icon: mdi:surround-sound
+        primary: Sound
+        secondary: Surround
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: surr_decoder
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+      - type: custom:mushroom-template-card
+        icon: mdi:surround-sound
+        primary: Sound
+        secondary: straight
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: straight
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }
+          
+      - type: custom:mushroom-template-card
+        icon: mdi:surround-sound
+        primary: Sound
+        secondary: cellar club
+        tap_action:
+          action: call-service
+          service: media_player.select_sound_mode
+          data:
+            sound_mode: cellar_club
+          target:
+            entity_id: media_player.family_room_amp
+        card_mod:
+          style: |
+            ha-card {
+              background-color: rgba(0, 128, 255, 0.15);
+              color: #0080FF;
+              --card-mod-icon-color: #0080FF;
+              border-radius: 12px;
+            }

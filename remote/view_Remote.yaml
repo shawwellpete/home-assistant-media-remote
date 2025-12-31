@@ -1,0 +1,101 @@
+title: Remote
+path: remote
+panel: true
+visible:
+  - user: 1b2a1289bb92447ab7441bff390d293b  # mqtt
+  - user: c462207ae4a04e4b91a55f631b94a086  # Peter
+  - user: 9da07ee7019f47b98feb2e9b88f71537  # Jessica
+  - user: 643f6ed4b59c450cb2ffc5d8036c6982  # Claudia
+  - user: c36c13cae2124079b660ef005791f032  # Henry
+  - user: cdaa0823d183426ea5fa1fd60a830141  # Christian
+  - user: b1f41759119542cda86cb578e640a7d8  # Josh
+
+badges: []
+
+cards:
+  - type: vertical-stack
+    cards:
+      # Title
+      - type: custom:mushroom-title-card
+        title: Remote Control
+        subtitle: Select which room to control
+
+      # Room Selection Buttons
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            name: Media Room
+            icon: mdi:movie-open
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/media-room
+            styles:
+              card:
+                - background-color: rgba(0, 128, 128, 0.15)
+                - border-radius: 12px
+                - height: 120px
+              icon:
+                - color: '#0080FF'
+                - width: 40px
+                - height: 40px
+              name:
+                - color: '#0080FF'
+                - font-size: 16px
+                - font-weight: bold
+
+          - type: custom:button-card
+            name: Family Room
+            icon: mdi:sofa
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/family-room
+            styles:
+              card:
+                - background-color: rgba(0, 128, 128, 0.15)
+                - border-radius: 12px
+                - height: 120px
+              icon:
+                - color: '#0080FF'
+                - width: 40px
+                - height: 40px
+              name:
+                - color: '#0080FF'
+                - font-size: 16px
+                - font-weight: bold
+
+      # Optional: Quick Status Cards
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "Media Room"
+            secondary: "{{ states('input_select.media_room_activity') }}"
+            icon: mdi:television
+            icon_color: >
+              {% if is_state('media_player.media_room_tv', 'on') %}
+                green
+              {% else %}
+                grey
+              {% endif %}
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/media-room
+
+          - type: custom:mushroom-template-card
+            primary: "Family Room"
+            secondary: "{{ states('input_select.family_room_activity') }}"
+            icon: mdi:sofa
+            icon_color: >
+              {% if is_state('media_player.family_room_tv', 'on') %}
+                green
+              {% else %}
+                grey
+              {% endif %}
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/family-room
+      # Lights
+
+    
+ 
+      - !include ../block_light_floor_0.yaml
+      - !include ../block_light_floor_1.yaml

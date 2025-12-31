@@ -1,0 +1,1295 @@
+type: custom:mushroom-template-card #floor 0 lights card
+primary: Floor 0
+secondary: >-
+  {% set entities = expand('group.floor0_using') %}
+
+  {% set total = entities | list | length %}
+
+  {% set active = entities | selectattr('state', 'eq', 'on') | list | length
+  %}
+
+  {% if active == 0 %}
+
+  all sensors on
+
+  {% elif active == total %}
+
+  all sensors off
+
+  {% else %}
+
+  some sensors on
+
+  {% endif %}
+icon: mdi:lightbulb-group
+entity: light.floor_0_lights
+icon_color: |-
+  {% if is_state("light.floor_0_lights", "on") %}
+  orange
+  {% else %}
+  grey
+  {% endif %}
+badge_icon: |-
+  {% if is_state("group.floor0", "on") %}
+  mdi:motion-sensor
+  {% else %}
+  mdi:motion-sensor-off
+  {% endif %}
+badge_color: |-
+  {% if is_state("group.floor0", "on") %}
+  red
+  {% else %}
+  green
+  {% endif %}
+card_mod:
+  style: |
+    ha-card {
+      background-color: {% if is_state("light.floor_0_lights", "on") %}
+        rgba(255, 165, 0, 0.15)
+      {% else %}
+        rgba(128, 128, 128, 0.15)
+      {% endif %};
+
+    }
+
+tap_action:
+  action: fire-dom-event
+  browser_mod:
+    service: browser_mod.popup
+    data:
+      title: Floor 0
+      dismissable: true
+      content:
+        type: grid
+        columns: 2
+        square: false
+        cards:
+
+          - type: custom:mushroom-template-card #kitchen
+            primary: Kitchen
+            secondary: |-
+              {% if is_state("input_boolean.using_kitchen", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.kitchen_pelmet_right
+            icon_color: |-
+              {% if is_state("light.kitchen_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.kitchen", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.kitchen", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.kitchen_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Kitchen Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_downlights
+                        icon: mdi:lightbulb
+                        name: downlights
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_downlights", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_side
+                        icon: mdi:lightbulb
+                        name: side
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_side", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_hob
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_hob", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_pelmet_right
+                        name: kitchen pelmet
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_pelmet_right", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_rgbw
+                        icon: mdi:lightbulb
+                        comment: test
+                        show_brightness_control: true
+                        show_color_control: true
+                        use_light_color: true
+                        tap_action:
+                          action: toggle
+                        double_tap_action:
+                          action: more-info
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_rgbw", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                        hold_action:
+
+                          action: fire-dom-event
+                          browser_mod:
+                          
+                            service: browser_mod.popup
+                            data:
+                              title: individual channels
+                              dismissable: true
+                              content:
+                                type: grid
+                                columns: 2
+                                square: false
+                                cards:
+                                - type: custom:mushroom-light-card
+                                  entity: light.kitchen_r
+                                  show_brightness_control: true
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.kitchen_r", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+          
+                                - type: custom:mushroom-light-card
+                                  entity: light.kitchen_g
+                                  show_brightness_control: true
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.kitchen_g", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.kitchen_b
+                                  show_brightness_control: true
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.kitchen_b", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.kitchen_w
+                                  show_brightness_control: true
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.kitchen_w", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_r
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_r", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+          
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_g
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_g", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_b
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_b", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.kitchen_w
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.kitchen_w", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_kitchen
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id:
+                  - light.kitchen_lights
+          - type: custom:mushroom-template-card
+            primary: Dining Room
+            secondary: |-
+              {% if is_state("input_boolean.using_kitchen", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.dining_room
+            icon_color: |-
+              {% if is_state("light.dining_room_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.diningroom", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.diningroom", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.dining_room_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Dining Room Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_rgbw
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        show_color_control: true
+                        use_light_color: true
+                        tap_action:
+                          action: toggle
+                        double_tap_action:
+                          action: more-info
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_rgbw", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                        hold_action:
+
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Individual Channels
+                              content:
+                                type: grid
+                                columns: 2
+                                square: false
+
+                                cards:
+                                  - type: custom:mushroom-light-card
+                                    entity: light.dining_room_r
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    show_brightness_control: true
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.dining_room_r", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+
+                                  - type: custom:mushroom-light-card
+                                    entity: light.dining_room_g
+                                    icon: mdi:lightbulb
+                                    show_brightness_control: true
+                                    tap_action:
+                                      action: toggle
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.dining_room_g", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                                        
+                                  - type: custom:mushroom-light-card
+                                    entity: light.dining_room_b
+                                    icon: mdi:lightbulb
+                                    show_brightness_control: true
+                                    tap_action:
+                                      action: toggle
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.dining_room_b", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                                        
+                                  - type: custom:mushroom-light-card
+                                    entity: light.dining_room_w
+                                    show_brightness_control: true
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.dining_room_w", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                              dismissable: true
+                              
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_arch
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_arch", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_r
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_r", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_g
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_g", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_b
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_b", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.dining_room_w
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.dining_room_w", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                  dismissable: true
+                  
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_kitchen
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.dining_room_lights
+          - type: custom:mushroom-template-card
+            primary: Family Room
+            secondary: |-
+              {% if is_state("input_boolean.using_family_room", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.family_room_downlights
+            icon_color: |-
+              {% if is_state("light.family_room_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.familyroom", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.familyroom", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.family_room_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Family Room Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_downlights
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_downlights", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.glass_lamps
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.glass_lamps", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.tiffany_lamp
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.tiffany_lamp", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_rgbw
+                        show_color_control: true
+                        use_light_color: true
+                        show_brightness_control: true
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        double_tap_action:
+                          action: more-info
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_rgbw", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                        hold_action:
+
+                          action: fire-dom-event
+                          browser_mod:
+                          
+                            service: browser_mod.popup
+                            data:
+                              title: Individual Channels
+                              dismissable: true
+                              content:
+                                type: grid
+                                columns: 2
+                                square: false
+                                cards:
+                                  - type: custom:mushroom-light-card
+                                    entity: light.family_room_r
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    show_brightness_control: true
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.family_room_r", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                                        
+                                  - type: custom:mushroom-light-card
+                                    entity: light.family_room_g
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    show_brightness_control: true
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.family_room_g", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                                        
+                                  - type: custom:mushroom-light-card
+                                    entity: light.family_room_b
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    show_brightness_control: true
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.family_room_b", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+                                        
+                                  - type: custom:mushroom-light-card
+                                    entity: light.family_room_w
+                                    icon: mdi:lightbulb
+                                    tap_action:
+                                      action: toggle
+                                    show_brightness_control: true
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          background-color: {% if is_state("light.family_room_w", "on") %}
+                                            rgba(255, 165, 0, 0.15)
+                                          {% else %}
+                                            rgba(128, 128, 128, 0.15)
+                                          {% endif %};
+                                        }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_r
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_r", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_g
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_g", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_b
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_b", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.family_room_w
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.family_room_w", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_family_room
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.family_room_lights
+          - type: custom:mushroom-template-card
+            primary: Lower Hallway
+            secondary: |-
+              {% if is_state("input_boolean.using_lower_hallway", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.lower_hallway_spots
+            icon_color: |-
+              {% if is_state("light.lower_hallway_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.lowerhallway", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.lowerhallway", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.lower_hallway_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Lower Hallway Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.lower_hallway_spots
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.lower_hallway_spots", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.lower_hallway_rgbw
+                        show_brightness_control: true
+                        show_color_control: true
+                        use_light_color: true
+                        name: Hall Wine RGBW
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        double_tap_action:
+                          action: more-info
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.lower_hallway_rgbw", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                        hold_action:
+
+                          action: fire-dom-event
+                          browser_mod:
+                          
+                            service: browser_mod.popup
+                            data:
+                              title: Individual Channels
+                              dismissable: true
+                              content:
+                                type: grid
+                                columns: 2
+                                square: false
+                                cards:
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hallway_r
+                                  name: Hall Wine R
+                                  icon: mdi:lightbulb
+                                  show_brightness_control: true
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hallway_r", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hallway_g
+                                  icon: mdi:lightbulb
+                                  name: Hall Wine G
+                                  show_brightness_control: true
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hallway_g", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hallway_b
+                                  icon: mdi:lightbulb
+                                  name: Hall Wine B
+                                  show_brightness_control: true
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hallway_b", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hallway_w
+                                  name: Hall Wine W
+                                  icon: mdi:lightbulb
+                                  show_brightness_control: true
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hallway_w", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                      - type: custom:mushroom-light-card
+                        entity: light.hall_pantry_rgbw
+                        show_brightness_control: true
+                        show_color_control: true
+                        use_light_color: true
+                        name: Hall Pantry RGBW
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        double_tap_action:
+                          action: more-info
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.hall_pantry_rgbw", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                        hold_action:
+
+                          action: fire-dom-event
+                          browser_mod:
+                            dismissable: true
+                            service: browser_mod.popup
+                            data:
+                              title: Individual Channels
+                              dismissable: true
+                              content:
+                                type: grid
+                                columns: 2
+                                square: false
+                                cards:
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hall_pantry_r
+                                  name: Hall pantry R
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hall_pantry_r", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hall_pantry_g
+                                  name: Hall pantry G
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hall_pantry_g", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hall_pantry_b
+                                  name: Hall pantry B
+                                  icon: mdi:lightbulb
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hall_pantry_b", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+                                      
+                                - type: custom:mushroom-light-card
+                                  entity: light.lower_hall_pantry_w
+                                  icon: mdi:lightbulb
+                                  name: Hall pantry W
+                                  tap_action:
+                                    action: toggle
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background-color: {% if is_state("light.lower_hall_pantry_w", "on") %}
+                                          rgba(255, 165, 0, 0.15)
+                                        {% else %}
+                                          rgba(128, 128, 128, 0.15)
+                                        {% endif %};
+                                      }
+
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_lower_hallway
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.lower_hallway_lights
+          - type: custom:mushroom-template-card
+            primary: Other Rooms
+            secondary: |-
+              {% if is_state("group.other_floor0_using", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.boot_room
+            icon_color: |-
+              {% if is_state("group.other_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.other_floor_0", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.other_floor_0", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("group.other_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Other Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.boot_room
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.boot_room", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.plant_room
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.plant_room", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.pantry
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.pantry", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.wine_cellar
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.wine_cellar", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.floor_0_loo
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.floor_0_loo", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: group.other_floor0_using
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id:
+                  - light.other_lights_floor_0
+
+hold_action:
+  action: call-service
+  service: input_boolean.turn_off
+  service_data:
+    entity_id: group.floor0_using
+double_tap_action:
+  action: call-service
+  service: light.turn_off
+  service_data:
+    entity_id:
+      - light.floor_0_lights

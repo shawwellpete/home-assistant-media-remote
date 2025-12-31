@@ -1,0 +1,124 @@
+type: vertical-stack
+cards:
+  # - type: custom:mushroom-template-card
+  #   entity: input_select.family_room_activity
+  #   icon: mdi:movie-open
+  #   primary: Family Room Activity
+  #   secondary: >
+  #     {% if is_state('input_select.family_room_activity', 'Off') %}
+  #       select activity below
+  #     {% else %}
+  #       {{ states('input_select.family_room_activity') }} - tap to turn off
+  #     {% endif %}
+  #   layout: vertical
+  #   tap_action:
+  #     action: call-service
+  #     service: script.turn_on
+  #     service_data:
+  #       entity_id: script.family_room_off_time
+  #   card_mod:
+  #     style: |
+  #       ha-card {
+  #         background-color: rgba(0, 128, 255, 0.15);
+  #         color: #0080FF;
+  #         border-radius: 12px;
+  #       }
+
+  - type: grid
+    columns: 5
+    square: false
+    cards:
+      - type: custom:button-card
+        entity: script.its_downstairs_tv_time
+        name: TV
+        icon: mdi:television
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_tv_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Smart TV' ? '#FFA500' : '#0080FF'; ]]]
+          # name:
+          #   - color: >
+          #       [[[ return states['input_select.family_room_activity'].state === 'Smart TV' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_sonos_time
+        name: Sonos
+        icon: mdi:speaker-multiple
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_sonos_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Sonos' ? '#FFA500' : '#0080FF'; ]]]
+          # name:
+          #   - color: >
+          #       [[[ return states['input_select.family_room_activity'].state === 'Sonos' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_freesat_time
+        name: Freesat
+        icon: mdi:satellite-variant
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_freesat_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Freesat' ? '#FFA500' : '#0080FF'; ]]]
+          # name:
+          #   - color: >
+          #       [[[ return states['input_select.family_room_activity'].state === 'Freesat' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_nintendo_time
+        name: Nintendo
+        icon: mdi:nintendo-switch
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_nintendo_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Nintendo' ? '#FFA500' : '#0080FF'; ]]]
+          # name:
+          #   - color: >
+          #       [[[ return states['input_select.family_room_activity'].state === 'Nintendo' ? '#FFA500' : '#0080FF'; ]]]
+      - type: custom:button-card
+        entity: script.family_room_off_time
+        name: 'Off'
+        icon: mdi:power
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.family_room_off_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: '#0080FF'

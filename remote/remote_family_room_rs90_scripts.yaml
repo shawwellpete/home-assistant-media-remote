@@ -1,0 +1,182 @@
+type: vertical-stack
+cards:
+
+  # ───────────────────────────
+  #   2x2 ACTIVITY GRID (NO POWER)
+  # ───────────────────────────
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: custom:button-card
+        entity: script.its_downstairs_tv_time
+        name: TV
+        icon: mdi:television
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_tv_time
+        styles:
+          card:
+            - background-color: rgba(0,128,128,0.15)
+            - border-radius: 12px
+            - padding: 16px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Smart TV' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_sonos_time
+        name: Sonos
+        icon: mdi:speaker-multiple
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_sonos_time
+        styles:
+          card:
+            - background-color: rgba(0,128,128,0.15)
+            - border-radius: 12px
+            - padding: 16px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Sonos' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_freesat_time
+        name: Freesat
+        icon: mdi:satellite-variant
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_freesat_time
+        styles:
+          card:
+            - background-color: rgba(0,128,128,0.15)
+            - border-radius: 12px
+            - padding: 16px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Freesat' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_downstairs_nintendo_time
+        name: Nintendo
+        icon: mdi:nintendo-switch
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_downstairs_nintendo_time
+        styles:
+          card:
+            - background-color: rgba(0,128,128,0.15)
+            - border-radius: 12px
+            - padding: 16px
+          icon:
+            - color: >
+                [[[ return states['input_select.family_room_activity'].state === 'Nintendo' ? '#FFA500' : '#0080FF'; ]]]
+
+  # ───────────────────────────
+  #  CONDITIONAL: ONLY SHOW WHEN WATCHING TV
+  #  (activity == 'Smart TV')
+  # ───────────────────────────
+  - type: conditional
+    conditions:
+      - entity: input_select.family_room_activity
+        state: "Smart TV"
+    card:
+      type: vertical-stack
+      cards:
+        # - type: custom:mini-media-player
+        #   entity: media_player.family_room_tv
+        #   name: LG TV
+        #   hide:
+        #     volume: true
+
+        - type: grid
+          columns: 4
+          square: false
+          cards:
+            - type: picture
+              image: /local/pictures/netflix_new.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: Netflix
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/prime.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: "Prime Video"
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/youtube_new.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: YouTube
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/disney.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: "Disney+"
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/now.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: NOW
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/bbc.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: "BBC iPlayer"
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/paramount.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: "Paramount+"
+                target:
+                  entity_id: media_player.family_room_tv
+
+            - type: picture
+              image: /local/pictures/apple_new.png
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                data:
+                  source: "Apple TV"
+                target:
+                  entity_id: media_player.family_room_tv

@@ -1,0 +1,516 @@
+type: custom:mushroom-template-card #floor 1 lights card
+primary: Floor 1
+secondary: >-
+  {% set entities = expand('group.floor1_using') %}
+  {% set total = entities | list | length %}
+  {% set active = entities | selectattr('state', 'eq', 'on') | list | length %}
+  {% if active == 0 %}
+  all sensors on
+  {% elif active == total %}
+  all sensors off
+  {% else %}
+  some sensors on
+  {% endif %}
+icon: mdi:lightbulb-group
+entity: light.floor_1_lights
+icon_color: |-
+  {% if is_state("light.floor_1_lights", "on") %}
+  orange
+  {% else %}
+  grey
+  {% endif %}
+badge_icon: |-
+  {% if is_state("group.floor1", "on") %}
+  mdi:motion-sensor
+  {% else %}
+  mdi:motion-sensor-off
+  {% endif %}
+badge_color: |-
+  {% if is_state("group.floor1", "on") %}
+  red
+  {% else %}
+  green
+  {% endif %}
+card_mod:
+  style: |
+    ha-card {
+      background-color: {% if is_state("light.floor_1_lights", "on") %}
+        rgba(255, 165, 0, 0.15)
+      {% else %}
+        rgba(128, 128, 128, 0.15)
+      {% endif %};
+
+    }
+tap_action:
+  action: fire-dom-event
+  browser_mod:
+    service: browser_mod.popup
+    data:
+      title: Floor 1
+      content:
+        type: grid
+        columns: 2
+        square: false
+        cards:
+          # Media Room Card
+          - type: custom:mushroom-template-card
+            primary: Media Room
+            secondary: >-
+              {% if is_state("input_boolean.using_media_room", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.media_room
+            icon_color: |-
+              {% if is_state("light.media_room_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.mediaroom", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.mediaroom", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.media_room_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Media Room Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.media_room_back_downlights
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.media_room_back_downlights", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.media_room_screen_downlights
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.media_room_screen_downlights", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.media_room_standard_lamp
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        show_brightness_control: true
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.media_room_standard_lamp", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                      
+
+                      - type: custom:mushroom-light-card
+                        entity: light.media_room_cabinet
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.media_room_cabinet", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_media_room
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.media_room_lights
+
+          # Study Card
+          - type: custom:mushroom-template-card
+            primary: Study
+            secondary: >-
+              {% if is_state("input_boolean.using_study", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.study_main
+            icon_color: |-
+              {% if is_state("light.study_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.study", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.study", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.study_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Study Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.study_main
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.study_main", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.study_desk_lamp
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.study_desk_lamp", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_study
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.study_lights
+
+          # Hallway Card
+          - type: custom:mushroom-template-card
+            primary: Hallway
+            secondary: >-
+              {% if is_state("input_boolean.using_hallway", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            entity: light.hallway
+            icon_color: |-
+              {% if is_state("light.hallway_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.hallway", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.hallway", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.hallway_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Hallway Lights
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-light-card
+                        entity: light.hallway
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.hallway", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.hallwaylamp_level_on_off
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.hallwaylamp_level_on_off", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_hallway
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.hallway_lights
+
+          - type: custom:mushroom-template-card
+            primary: Other rooms
+            secondary: >-
+              {% if is_state("input_boolean.CBFChristmas", "on") %}
+              sensors off
+              {% else %}
+              sensors on
+              {% endif %}
+            icon: mdi:lightbulb-group
+            
+            icon_color: |-
+              {% if is_state("light.other_floor1_lights", "on") %}
+              orange
+              {% else %}
+              grey
+              {% endif %}
+            badge_icon: |-
+              {% if is_state("group.other_floor1", "on") %}
+              mdi:motion-sensor
+              {% else %}
+              mdi:motion-sensor-off
+              {% endif %}
+            badge_color: |-
+              {% if is_state("group.other_floor1", "on") %}
+              red
+              {% else %}
+              green
+              {% endif %}
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: {% if is_state("light.other_floor1_lights", "on") %}
+                    rgba(255, 165, 0, 0.15)
+                  {% else %}
+                    rgba(128, 128, 128, 0.15)
+                  {% endif %};
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Other Floor 1
+                  content:
+                    type: grid
+                    columns: 2
+                    square: false
+                    cards:
+
+                      - type: custom:mushroom-light-card
+                        entity: light.stairwell
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.stairwell", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.powder_room
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.powder_room", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.shoe_room_bulb
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.shoe_room_bulb", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+                      - type: custom:mushroom-light-card
+                        entity: light.back_stairwell
+                        icon: mdi:lightbulb
+                        show_brightness_control: true
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.back_stairwell", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+                            
+                      - type: custom:mushroom-light-card
+                        entity: light.floor_1_loo
+                        icon: mdi:lightbulb
+                        tap_action:
+                          action: toggle
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background-color: {% if is_state("light.floor_1_loo", "on") %}
+                                rgba(255, 165, 0, 0.15)
+                              {% else %}
+                                rgba(128, 128, 128, 0.15)
+                              {% endif %};
+                            }
+
+
+                  dismissable: true
+            hold_action:
+              action: call-service
+              service: input_boolean.toggle
+              service_data:
+                entity_id: input_boolean.using_hallway
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.hallway_lights
+
+
+
+hold_action:
+  action: call-service
+  service: input_boolean.toggle
+  service_data:
+    entity_id: group.floor1_using
+double_tap_action:
+  action: call-service
+  service: light.toggle
+  service_data:
+    entity_id: light.floor_1_lights

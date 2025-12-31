@@ -1,0 +1,79 @@
+title: Media Room
+path: media-room
+panel: true
+visible:
+  - user: 1b2a1289bb92447ab7441bff390d293b  # mqtt
+  - user: c462207ae4a04e4b91a55f631b94a086  # Peter
+  - user: 9da07ee7019f47b98feb2e9b88f71537  # Jessica
+  - user: 643f6ed4b59c450cb2ffc5d8036c6982  # Claudia
+  - user: c36c13cae2124079b660ef005791f032  # Henry
+  - user: cdaa0823d183426ea5fa1fd60a830141  # Christian
+  - user: b1f41759119542cda86cb578e640a7d8  # Josh
+subview: true 
+badges: []
+
+cards:
+  - type: vertical-stack
+    cards:
+      # Header with Back Button
+      - type: horizontal-stack
+        cards:
+          # - type: custom:button-card
+          #   name: Back
+          #   icon: mdi:arrow-left
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /lovelace/remote
+          #   styles:
+          #     card:
+          #       - background-color: rgba(128, 128, 128, 0.1)
+          #       - border-radius: 12px
+          #       - width: 80px
+          #       - height: 50px
+          #     icon:
+          #       - color: '#888888'
+          #       - width: 20px
+          #     name:
+          #       - color: '#888888'
+          #       - font-size: 12px
+
+          - type: custom:mushroom-title-card
+            # title: Media Room
+            # subtitle: "Activity: {{ states('input_select.media_room_activity') }}"
+
+      # Media Room Controls (your existing includes)
+      - !include remote_scripts.yaml
+
+      # Activity-based conditional controls
+      - type: conditional
+        conditions:
+          - entity: input_select.media_room_activity
+            state: "Smart TV"
+        card:
+          type: vertical-stack
+          cards:
+            - !include remote_tv_controls.yaml
+            - !include remote_sound.yaml
+
+      - type: conditional
+        conditions:
+          - entity: input_select.media_room_activity
+            state: "Apple TV"
+        card:
+          type: vertical-stack
+          cards:
+            - !include remote_apple_tv_controls.yaml
+            - !include remote_sound.yaml
+
+      - type: conditional
+        conditions:
+          - entity: input_select.media_room_activity
+            state: "Projector Apple TV"
+        card:
+          type: vertical-stack
+          cards:
+            - !include remote_apple_tv_controls.yaml
+            - !include remote_sound.yaml
+
+      # Lights
+      - !include ../block_light_floor_1.yaml

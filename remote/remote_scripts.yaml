@@ -1,0 +1,123 @@
+type: vertical-stack
+cards:
+
+  # - type: custom:mushroom-template-card
+  #   entity: input_select.media_room_activity
+  #   icon: mdi:movie-open
+  #   primary: Media Room Activity
+  #   secondary: >
+  #     {% if is_state('input_select.media_room_activity', 'Smart TV') %}
+  #       Smart TV  - tap to switch to Apple TV
+  #     {% else %}
+  #       {{ states('input_select.media_room_activity') }}
+  #     {% endif %}
+  #   layout: vertical
+  #   tap_action:
+  #     action: call-service
+  #     service: script.turn_on
+  #     service_data:
+  #       entity_id: script.apple_tv
+  #   card_mod:
+  #     style: |
+  #       ha-card {
+  #         background-color: rgba(0, 128, 255, 0.15);
+  #         color: #0080FF;
+  #         border-radius: 12px;
+  #       }
+
+
+
+  - type: grid
+    columns: 5
+    square: false
+    cards:
+      - type: custom:button-card
+        entity: script.its_tv_time_2
+        name: TV
+        icon: mdi:television-play
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_tv_time_2
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.media_room_activity'].state === 'Smart TV' ? '#FFA500' : '#0080FF'; ]]]
+      - type: custom:button-card
+        entity: script.its_ps4_time
+        name: PS4
+        icon: mdi:sony-playstation
+
+
+
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_ps4_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+
+          icon:
+            - color: >
+                [[[ return states['input_select.media_room_activity'].state === 'PS4 on TV' ? '#FFA500' : '#0080FF'; ]]]
+
+
+
+      - type: custom:button-card
+        entity: script.apple_TV
+        name: Apple TV
+        icon: mdi:apple
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.apple_TV
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.media_room_activity'].state === 'Apple TV' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.projector_movie_time_script
+        name: Projector
+        icon: mdi:projector
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          confirmation: 
+            text: cupboards closed?
+          service_data:
+            entity_id: script.projector_movie_time_script
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: >
+                [[[ return states['input_select.media_room_activity'].state === 'Projector apple TV' ? '#FFA500' : '#0080FF'; ]]]
+
+      - type: custom:button-card
+        entity: script.its_off_time
+        name: 'Off'
+        icon: mdi:power
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.its_off_time
+        styles:
+          card:
+            - background-color: rgba(0, 128, 128, 0.15)
+            - border-radius: 12px
+          icon:
+            - color: '#0080FF'
